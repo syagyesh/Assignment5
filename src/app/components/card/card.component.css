@@ -1,0 +1,86 @@
+.header {
+    background-color: #ebf3ff;
+    height: 8em;
+}
+
+.title {
+    padding: 1em 2em;
+    font-size: 25px;
+    color: #283648;
+}
+
+.subtitle {
+    padding: 0 3em;
+    font-size: 18px;
+    color: #384658;
+}
+
+.filter-button > button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 2em 3em;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    border-radius: 2em;
+
+}
+
+.filter-button {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.filter-button > button:first-child {
+    background-color: #ebf2fe;
+    color: #428bfe;
+}
+
+.filter-button > button:first-child:hover {
+    background-color: #0e59db;
+    color: #e3e8f0;
+}
+
+.filter-button > button:nth-child(2) {
+    background-color: #fff5e4;
+    color: #ffac01;
+}
+
+.filter-button > button:nth-child(2):hover {
+    background-color: #0e59db;
+    color: #e3e8f0;
+}
+
+.filter-button > button:nth-child(3) {
+    background-color: #e0fefb;
+    color: #24e5c4;
+}
+
+.filter-button > button:nth-child(3):hover {
+    background-color: #0e59db;
+    color: #e3e8f0;
+}
+
+.filter-button > button:nth-child(4) {
+    background-color: #ffece9;
+    color: #fe997f;
+}
+
+.filter-button > button:nth-child(4):hover {
+    background-color: #0e59db;
+    color: #e3e8f0;
+}
+
+.add-data > mat-card {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn {
+    font-size: 20px;
+    width: 10em;
+    height: 3em;
+}

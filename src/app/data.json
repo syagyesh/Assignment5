@@ -1,0 +1,16 @@
+[
+    {
+        "ID": "1",
+        "Ticket": "Json Working",
+        "AssignedTo": "Liam Livingstone",
+        "Status": "Open",
+        "Date": "2019-01-01T18:30:00.000Z"
+    },
+    {
+        "ID": "2",
+        "Ticket": "Doing Practice",
+        "AssignedTo": "Dwene Bravo",
+        "Status": "Closed",
+        "Date": "2020-01-01T18:30:00.000Z"
+    }
+]
