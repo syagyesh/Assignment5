@@ -1,5 +1,5 @@
 .header {
-    background-color: #ebf3ff;
+    background-color: #92b4e6;
     height: 8em;
 }
 
@@ -19,12 +19,13 @@
     background: none;
 	color: inherit;
 	border: none;
-	padding: 2em 3em;
+	padding: 1em 4em;
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
-    border-radius: 2em;
-
+    border-radius: 1em;
+    font-size: 19px;
+    font-weight: 500;
 }
 
 .filter-button {
@@ -33,43 +34,43 @@
 }
 
 .filter-button > button:first-child {
-    background-color: #ebf2fe;
-    color: #428bfe;
+    background-color: #6487c2;
+    color: #1a1c71;
 }
 
 .filter-button > button:first-child:hover {
-    background-color: #0e59db;
-    color: #e3e8f0;
+    background-color: #95b4e9;
+    color: #1a1c71;
 }
 
 .filter-button > button:nth-child(2) {
-    background-color: #fff5e4;
-    color: #ffac01;
+    background-color: #edc277;
+    color: #df9e1e;
 }
 
 .filter-button > button:nth-child(2):hover {
-    background-color: #0e59db;
-    color: #e3e8f0;
+    background-color: #f8d8a1;
+    color: #df9e1e;
 }
 
 .filter-button > button:nth-child(3) {
-    background-color: #e0fefb;
-    color: #24e5c4;
+    background-color: #2fd5c4;
+    color: #1b5e53;
 }
 
 .filter-button > button:nth-child(3):hover {
-    background-color: #0e59db;
-    color: #e3e8f0;
+    background-color: #80e0ea;
+    color: #1b5e53;
 }
 
 .filter-button > button:nth-child(4) {
-    background-color: #ffece9;
-    color: #fe997f;
+    background-color: #ee8a7b;
+    color: #772814;
 }
 
 .filter-button > button:nth-child(4):hover {
-    background-color: #0e59db;
-    color: #e3e8f0;
+    background-color: #e99d96;
+    color: #772814;
 }
 
 .add-data > mat-card {
@@ -79,8 +80,44 @@
     align-items: center;
 }
 
-.btn {
-    font-size: 20px;
-    width: 10em;
+/* .btn {
+    margin-top: 5em;
+    margin-right: 4em;
+    font-size: 18px;
+    width: 7em;
     height: 3em;
+} */
+
+.filter-button > button > span {
+    display: block;
+    padding-bottom: .5em;
+}
+
+.add-data-btn {
+    background: #1a1c71;
+	color: #dddff0;
+	border: none;
+	padding: 1em 1em;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+    border-radius: 1em;
+    font-size: 19px;
+    font-weight: 500;
+    margin-right: 4em;
+    margin-top: 3em;
+}
+
+.add-data-btn:hover {
+    background-color: #5558f0;
+    color: #dddff0;
+}
+
+.table {
+    margin: 2em 0 0 0;
+}
+
+.table > mat-card {
+    height: 20em;
+    overflow: auto;
 }

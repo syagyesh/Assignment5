@@ -4,13 +4,41 @@
         "ticket": "Json Working",
         "assignedTo": "Liam Livingstone",
         "status": "Open",
-        "date": "2019-01-01T18:30:00.000Z"
+        "date": "2019-01-01"
     },
     {
         "id": "2",
         "ticket": "Doing Practice",
         "assignedTo": "Dwene Bravo",
+        "status": "Pending",
+        "date": "2020-01-01"
+    },
+    {
+        "id": "3",
+        "ticket": "Doing Practice",
+        "assignedTo": "Dwene Bravo",
         "status": "Closed",
-        "date": "2020-01-01T18:30:00.000Z"
+        "date": "2020-01-01"
+    },
+    {
+        "id": "4",
+        "ticket": "Doing Practice",
+        "assignedTo": "Dwene Bravo",
+        "status": "Pending",
+        "date": "2020-01-01"
+    },
+    {
+        "id": "5",
+        "ticket": "Doing Practice",
+        "assignedTo": "Dwene Bravo",
+        "status": "Closed",
+        "date": "2020-01-01"
+    },
+    {
+        "id": "6",
+        "ticket": "Doing Practice",
+        "assignedTo": "Dwene Bravo",
+        "status": "Open",
+        "date": "2020-01-01"
     }
 ]

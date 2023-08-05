@@ -31,4 +31,5 @@ export class DialogComponent implements OnInit {
     addData() {
       this.dialogRef.close(this.dataForm.value);
     }
+    
 }

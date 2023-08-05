@@ -28,7 +28,8 @@ export class CardComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = this.data;
     localStorage.setItem('data', JSON.stringify(this.data));
-    this.totalData = this.data.length;
+    // this.totalData = this.data.length;
+    this.filterValues(this.data);
   }
   displayedColumns : string[] = ['id', 'ticket', 'assigned', 'status', 'date', 'action']
 
@@ -103,5 +104,4 @@ export class CardComponent implements OnInit {
     this.closedValue = this.closedData.length;
   } 
   
-
 }
