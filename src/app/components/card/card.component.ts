@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-// import data from '../../data.json';
+import data from '../../data.json';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { MatTableDataSource } from '@angular/material/table';
 
 
 
@@ -12,30 +11,12 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  workData : any[] = [];
-  
-  data =  [
-    {
-        "id": "1",
-        "ticket": "Json Working",
-        "assignedTo": "Liam Livingstone",
-        "status": "Open",
-        "date": "2019-01-01T18:30:00.000Z"
-    },
-    {
-        "id": "2",
-        "ticket": "Doing Practice",
-        "assignedTo": "Dwene Bravo",
-        "status": "Closed",
-        "date": "2020-01-01T18:30:00.000Z"
-    }
-]
-
-  dataSource : MatTableDataSource<any>;
+  data = [...data];
+  dataSource : any[];
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
+    this.dataSource = this.data;
   }
   displayedColumns : string[] = ['id', 'ticket', 'assigned', 'status', 'date', 'action']
 
@@ -47,22 +28,18 @@ export class CardComponent implements OnInit {
 
     dialogData.afterClosed().subscribe(result => {
       this.data = [...this.data,result]
-      this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
-      console.log("changes is",this.dataSource);
-      console.log("result from data:",result);
+      this.dataSource = [...this.data];
     });
   }
 
   deleteData(id:string) {
-    console.log("id is",id);
     for(let i = 0; i < this.data.length; i++) {
       if(parseInt(this.data[i].id) == parseInt(id)) {
         this.data.splice(i,1);
-        this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
+        this.dataSource = [...this.data];
         break;
       }
     }
-    console.log(this.dataSource);
   }
 
   editData(id:string) {
@@ -75,7 +52,7 @@ export class CardComponent implements OnInit {
         this.deleteData(id)
         dialogData.afterClosed().subscribe(result => {
           this.data = [...this.data,result]
-          this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
+          this.dataSource = [...this.data];
         });
       break;
       }
@@ -86,9 +63,9 @@ export class CardComponent implements OnInit {
     const filterValue = this.data.filter((data) => {
       return data.status == value;
     });
-    this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify([...filterValue])));
+    this.dataSource = [...filterValue];
     if(value == "Total") {
-      this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
+      this.dataSource = [...this.data];
     }
   }
 
