@@ -7,15 +7,15 @@
 <div class="card-select">
     <mat-card>
         <mat-card-content class="filter-button">
-            <button (click)="filterData('Total')">Total Tickets</button>
-            <button (click)="filterData('Pending')">Pending Tickets</button>
-            <button (click)="filterData('Open')">Open Tickets</button>
-            <button (click)="filterData('Closed')">Closed Tickets</button>
+            <button (click)="filterData('Total')">{{totalData}}:- Total Tickets</button>
+            <button (click)="filterData('Pending')">{{pendingValue}}:-  Pending Tickets</button>
+            <button (click)="filterData('Open')">{{openValue}}:- Open Tickets</button>
+            <button (click)="filterData('Closed')">{{closedValue}}:-  Closed Tickets</button>
         </mat-card-content>
     </mat-card>
 </div>
 <div class="add-data">
-    <mat-card>
+    <mat-card>  
         <mat-card-content>
             <mat-form-field class="example-full-width">
                 <mat-label>Search</mat-label>

@@ -13,10 +13,22 @@ import { DialogComponent } from '../dialog/dialog.component';
 export class CardComponent implements OnInit {
   data = [...data];
   dataSource : any[];
+
+  // Filter Values
+  totalData : number;
+  openData: any[];
+  openValue: number;
+  pendingData: any[];
+  pendingValue: number;
+  closedData: any[];
+  closedValue: number;
+
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.dataSource = this.data;
+    localStorage.setItem('data', JSON.stringify(this.data));
+    this.totalData = this.data.length;
   }
   displayedColumns : string[] = ['id', 'ticket', 'assigned', 'status', 'date', 'action']
 
@@ -28,6 +40,8 @@ export class CardComponent implements OnInit {
 
     dialogData.afterClosed().subscribe(result => {
       this.data = [...this.data,result]
+      localStorage.setItem('data', JSON.stringify([...this.data]));
+      this.filterValues(this.data);
       this.dataSource = [...this.data];
     });
   }
@@ -36,6 +50,8 @@ export class CardComponent implements OnInit {
     for(let i = 0; i < this.data.length; i++) {
       if(parseInt(this.data[i].id) == parseInt(id)) {
         this.data.splice(i,1);
+        localStorage.setItem('data', JSON.stringify(this.data));
+        this.filterValues(this.data);
         this.dataSource = [...this.data];
         break;
       }
@@ -51,7 +67,9 @@ export class CardComponent implements OnInit {
           });
         this.deleteData(id)
         dialogData.afterClosed().subscribe(result => {
-          this.data = [...this.data,result]
+          this.data = [...this.data,result];
+          localStorage.setItem('data', JSON.stringify([...this.data]));
+          this.filterValues(this.data);
           this.dataSource = [...this.data];
         });
       break;
@@ -68,5 +86,22 @@ export class CardComponent implements OnInit {
       this.dataSource = [...this.data];
     }
   }
+
+  filterValues(data: any[]) {
+    this.totalData = data.length;
+    this.openData = data.filter((data) => {
+      return data.status == "Open";
+    });
+    this.openValue = this.openData.length;
+    this.pendingData = data.filter((data) => {
+      return data.status == "Pending";
+    });
+    this.pendingValue = this.pendingData.length;
+    this.closedData = data.filter((data) => {
+      return data.status == "Closed";
+    });
+    this.closedValue = this.closedData.length;
+  } 
+  
 
 }
