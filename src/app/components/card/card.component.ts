@@ -1,65 +1,64 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import data from '../../data.json';
+import { Component, OnInit } from '@angular/core';
+// import data from '../../data.json';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../dialog/dialog.component';
-import { MatTable, MatTableModule } from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
+
+
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent {
-  workData = data;
-  dataSource = [...this.workData];
-  additionalData : any[] = [];
-  @ViewChild(MatTable) table: MatTable<any>;
-  constructor(public dialog: MatDialog) {
-    this.addData();
-    this.showData();
+export class CardComponent implements OnInit {
+  workData : any[] = [];
+  
+  data =  [
+    {
+        "id": "1",
+        "ticket": "Json Working",
+        "assignedTo": "Liam Livingstone",
+        "status": "Open",
+        "date": "2019-01-01T18:30:00.000Z"
+    },
+    {
+        "id": "2",
+        "ticket": "Doing Practice",
+        "assignedTo": "Dwene Bravo",
+        "status": "Closed",
+        "date": "2020-01-01T18:30:00.000Z"
+    }
+]
+
+  dataSource : MatTableDataSource<any>;
+  constructor(public dialog: MatDialog) {}
+
+  ngOnInit(): void {
+    this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
   }
-
- 
-
   displayedColumns : string[] = ['id', 'ticket', 'assigned', 'status', 'date', 'action']
 
-  openDialog(index: number) {
-    this.dialog.open(DialogComponent, {
-      data: index
+  openDialog() {
+    let dialogData = this.dialog.open(DialogComponent, {
+      data: {editData: this.data,
+            indexOfData: -1}
+    });
+
+    dialogData.afterClosed().subscribe(result => {
+      this.data = [...this.data,result]
+      this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
+      console.log("changes is",this.dataSource);
+      console.log("result from data:",result);
     });
   }
 
-  addData() {
-    if(localStorage.getItem("dataJson") != null) {
-      let dataJ = JSON.parse(localStorage.getItem("dataJson") || 'null');
-      this.additionalData.push(...dataJ);
-    }
-    this.dataSource.push(...this.additionalData);
-  }
-
-  showData(){
-    console.log(this.dataSource);
-  }
-
   deleteData(id:string) {
-    for(let i = 0; i < this.dataSource.length; i++) {
-      if(parseInt(this.dataSource[i].ID) == parseInt(id)) {
-        this.dataSource.splice(i,1);
-        for(let j = 0; j < this.additionalData.length; j++) {
-          if(parseInt(this.additionalData[j].ID) == parseInt(id)) {
-            this.additionalData.splice(j,1);
-            localStorage.setItem("dataJson", JSON.stringify(this.additionalData));
-            break;
-          }
-          else{
-            for(let k = 0; k < this.workData.length; k++) {
-              if(parseInt(this.workData[k].ID) == parseInt(id)) {
-                this.workData.splice(k,1);
-                break;
-              }
-            }
-          }
-        }
+    console.log("id is",id);
+    for(let i = 0; i < this.data.length; i++) {
+      if(parseInt(this.data[i].id) == parseInt(id)) {
+        this.data.splice(i,1);
+        this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
         break;
       }
     }
@@ -67,28 +66,29 @@ export class CardComponent {
   }
 
   editData(id:string) {
-    for(let i = 0; i < this.dataSource.length; i++) {
-      if(parseInt(this.dataSource[i].ID) == parseInt(id)) {
+    for(let i = 0; i < this.data.length; i++) {
+      if(parseInt(this.data[i].id) == parseInt(id)) {
+        const dialogData = this.dialog.open(DialogComponent, {
+          data: {editData: this.data,
+            indexOfData: i}
+          });
         this.deleteData(id)
-        this.dialog.open(DialogComponent, {
-          data: this.dataSource[i]
+        dialogData.afterClosed().subscribe(result => {
+          this.data = [...this.data,result]
+          this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
         });
-        break;
+      break;
       }
     }
   }
 
-  filterData(value:string){
-    // this.dataSource = this.workData.filter((data) => {
-    //   return data.Status == value;
-    // });
-    const filterValue = this.dataSource.filter((data) => {
-      return data.Status == value;
+  filterData(value:string){ 
+    const filterValue = this.data.filter((data) => {
+      return data.status == value;
     });
-    let tempData = this.dataSource;
-    this.dataSource = [...filterValue];
+    this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify([...filterValue])));
     if(value == "Total") {
-      this.dataSource = [...tempData];
+      this.dataSource = new MatTableDataSource(JSON.parse(JSON.stringify(this.data)));
     }
   }
 

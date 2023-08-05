@@ -1,59 +1,34 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { CardComponent } from '../card/card.component';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css']
 })
-export class DialogComponent {
-  constructor(private formbuilder: FormBuilder,@Inject(MAT_DIALOG_DATA) public data: any) {
-    console.log(data);
-    
-    // if(data != null) {
-    //   this.dataForm.setValue({
-    //     ID: data.ID,
-    //     Ticket: data.Ticket,
-    //     AssignedTo: data.AssignedTo,
-    //     Status: data.Status,
-    //     Date: data.Date
-    //   });
+export class DialogComponent implements OnInit {
+  constructor(private formbuilder: FormBuilder,public dialogRef: MatDialogRef<any>,@Inject(MAT_DIALOG_DATA) public data: any) {}
+  dataJson = [...this.data.editData];
+  ngOnInit(): void {
+    if(this.data.indexOfData != -1){
+      this.dataForm.patchValue(this.dataJson[this.data.indexOfData]);
+    }
+  };
 
-      // if(typeof(data) == 'number') {
-      //   // this.dataForm.setValue({
-      //   //   ID: (this.dataJson.length + 1).toString(),
-      //   //   Ticket: '',
-      //   //   AssignedTo: '',
-      //   //   Status: '',
-      //   //   Date: ''
-      //   // })
-      //   this.dataForm.controls['ID'].disable();
-      // }
-    // }
-    
-   }
-  Status : any[] = 
-    [
-      {value: 'Open', viewValue: 'Open'},
-      {value: 'Inprogress', viewValue: 'InProgress'},
-      {value: 'Closed', viewValue: 'Closed'}
-    ]
+  Status : any[] = [{value: 'Open', viewValue: 'Open'},
+                    {value: 'Pending', viewValue: 'InProgress'},
+                    {value: 'Closed', viewValue: 'Closed'}]
 
-    dataForm = this.formbuilder.group({
-      ID: [''],
-      Ticket: [''],
-      AssignedTo: [''],
-      Status: [''],
-      Date: ['']
+  dataForm = this.formbuilder.group({
+    id: (this.dataJson.length + 1).toString(),
+    ticket: this.formbuilder.control(''),
+    assignedTo: this.formbuilder.control(''),
+    status: this.formbuilder.control(''),
+    date: this.formbuilder.control(''),
     });
 
-    dataJson : any[] = JSON.parse(localStorage.getItem("dataJson") || '[]');
-
     addData() {
-      console.log(this.dataForm.value);
-      this.dataJson.push(this.dataForm.value);
-      localStorage.setItem("dataJson",JSON.stringify(this.dataJson));
+      this.dialogRef.close(this.dataForm.value);
     }
 }
