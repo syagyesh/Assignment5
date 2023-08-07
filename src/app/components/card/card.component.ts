@@ -11,7 +11,7 @@ import { DialogComponent } from '../dialog/dialog.component';
   styleUrls: ['./card.component.css']
 })
 export class CardComponent implements OnInit {
-  data = [...data];
+  data : any[];
   dataSource : any[];
 
   // Filter Values
@@ -26,9 +26,9 @@ export class CardComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
+    localStorage.getItem('data') ? this.data = JSON.parse(localStorage.getItem('data') || 'null') : this.data = [...data];
     this.dataSource = this.data;
     localStorage.setItem('data', JSON.stringify(this.data));
-    // this.totalData = this.data.length;
     this.filterValues(this.data);
   }
   displayedColumns : string[] = ['id', 'ticket', 'assigned', 'status', 'date', 'action']

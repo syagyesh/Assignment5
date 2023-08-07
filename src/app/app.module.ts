@@ -6,7 +6,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardComponent } from './components/card/card.component';
 import { DialogComponent } from './components/dialog/dialog.component';
 
+import { DatePipe } from '@angular/common';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 // Material UI
 import {MatCardModule} from '@angular/material/card';
@@ -38,9 +41,11 @@ import {MatNativeDateModule} from '@angular/material/core';
     MatDialogModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
