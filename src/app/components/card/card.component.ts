@@ -40,6 +40,7 @@ export class CardComponent implements OnInit {
     });
 
     dialogData.afterClosed().subscribe(result => {
+      if(result == null) return;
       this.data = [...this.data,result]
       localStorage.setItem('data', JSON.stringify([...this.data]));
       this.filterValues(this.data);
@@ -66,8 +67,9 @@ export class CardComponent implements OnInit {
           data: {editData: this.data,
             indexOfData: i}
           });
-        this.deleteData(id)
-        dialogData.afterClosed().subscribe(result => {
+          dialogData.afterClosed().subscribe(result => {
+          if(result == null) return;
+          this.deleteData(id)
           this.data = [...this.data,result];
           localStorage.setItem('data', JSON.stringify([...this.data]));
           this.filterValues(this.data);

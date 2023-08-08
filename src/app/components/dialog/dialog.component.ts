@@ -12,7 +12,9 @@ import { DatePipe } from '@angular/common';
 })
 export class DialogComponent implements OnInit {
   constructor(private formbuilder: FormBuilder,public dialogRef: MatDialogRef<any>,@Inject(MAT_DIALOG_DATA) public data: any,
-  private datepipe: DatePipe) {}
+  private datepipe: DatePipe) {
+    dialogRef.disableClose = true;
+  }
   dataJson = [...this.data.editData];
   ngOnInit(): void {
     if(this.data.indexOfData != -1){
@@ -36,6 +38,10 @@ export class DialogComponent implements OnInit {
     addData() {
       this.dataForm.value.date = this.datepipe.transform(this.dataForm.value.date,'dd-MM-yyyy','en-US');
       this.dialogRef.close(this.dataForm.value);
+    }
+
+    closeData() {
+      this.dialogRef.close(null);
     }
     
 }
